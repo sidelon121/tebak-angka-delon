@@ -104,26 +104,29 @@ def app_menu():
     <span>Medium: 1-20 (4 tebakan)</span><br>
     <span>Hard: 1-50 (5 tebakan)</span><br>
     <span>Expert: 1-100 (6 tebakan)</span><br>
+    <span>Very difficult: 1-1000 (10 tebakan)</span><br>
     </div>
     """, unsafe_allow_html=True)
     garis()
 
     pilihan = st.selectbox(
         "Pilih opsi:",
-        ("Pilih Level", "Easy", "Medium", "Hard", "Expert", "Keluar"),
+        ("Pilih Level", "Easy", "Medium", "Hard", "Expert", "Very difficult" "Keluar"),
         format_func=lambda x: {
             "Pilih Level": "Pilih Level Kesulitan",
             "Easy": "🎮 Easy (1-10)",
             "Medium": "🎯 Medium (1-20)",
             "Hard": "🔥 Hard (1-50)",
             "Expert": "💀 Expert (1-100)",
+            "Very difficult": "☠️ Very difficult (1-1000)"
             "Keluar": "🚪 Keluar"
         }[x]
     )
 
-    if pilihan in ["Easy", "Medium", "Hard", "Expert"]:
+    if pilihan in ["Easy", "Medium", "Hard", "Expert", "Very difficult"]:
         app_game(pilihan)
     elif pilihan == "Keluar":
         keluar()
+
 
 app_menu()
