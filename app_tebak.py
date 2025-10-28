@@ -112,14 +112,14 @@ def app_menu():
 
     pilihan = st.selectbox(
         "Pilih opsi:",
-        ("Pilih Level", "Easy", "Medium", "Hard", "Expert", "Crazy" "Keluar"),
+        ("Pilih Level", "Easy", "Medium", "Hard", "Expert", "Crazy", "Keluar"),
         format_func=lambda x: {
             "Pilih Level": "Pilih Level Kesulitan",
             "Easy": "🎮 Easy (1-10)",
             "Medium": "🎯 Medium (1-20)",
             "Hard": "🔥 Hard (1-50)",
             "Expert": "💀 Expert (1-100)",
-            "Crazy": "☠️ Crazy (1-1000)"
+            "Crazy": "☠️ Crazy (1-1000)",
             "Keluar": "🚪 Keluar"
         }[x]
     )
@@ -131,5 +131,6 @@ def app_menu():
 
 
 app_menu()
+
 
 
