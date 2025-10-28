@@ -16,7 +16,7 @@ levels = {
     "Easy": {"range": (1, 10), "max_tebakan": 3},
     "Medium": {"range": (1, 20), "max_tebakan": 4},
     "Hard": {"range": (1, 50), "max_tebakan": 5},
-    "Expert": {"range": (1, 100), "max_tebakan": 6}
+    "Expert": {"range": (1, 100), "max_tebakan": 6},
     "Crazy": {"range": (1, 1000), "max_tebakan": 10}
 }
 
@@ -131,4 +131,5 @@ def app_menu():
 
 
 app_menu()
+
 
