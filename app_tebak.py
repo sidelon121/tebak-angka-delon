@@ -17,6 +17,7 @@ levels = {
     "Medium": {"range": (1, 20), "max_tebakan": 4},
     "Hard": {"range": (1, 50), "max_tebakan": 5},
     "Expert": {"range": (1, 100), "max_tebakan": 6}
+    "Crazy": {"range": (1, 1000), "max_tebakan": 10}
 }
 
 # Fungsi game tebak angka
@@ -95,7 +96,7 @@ def app_menu():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='text-align:center; color: white;'>🎯 TEBAK ANGKA 🎯</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align:center; color: white;'>🎯 TEBAK ANGKA DELON 🎯</h1>", unsafe_allow_html=True)
     garis()
     st.markdown("""
     <div style='text-align:center; color: white;'>
@@ -104,29 +105,30 @@ def app_menu():
     <span>Medium: 1-20 (4 tebakan)</span><br>
     <span>Hard: 1-50 (5 tebakan)</span><br>
     <span>Expert: 1-100 (6 tebakan)</span><br>
-    <span>Very difficult: 1-1000 (10 tebakan)</span><br>
+    <span>Crazy: 1-1000 (10 tebakan)</span><br>
     </div>
     """, unsafe_allow_html=True)
     garis()
 
     pilihan = st.selectbox(
         "Pilih opsi:",
-        ("Pilih Level", "Easy", "Medium", "Hard", "Expert", "Very difficult" "Keluar"),
+        ("Pilih Level", "Easy", "Medium", "Hard", "Expert", "Crazy" "Keluar"),
         format_func=lambda x: {
             "Pilih Level": "Pilih Level Kesulitan",
             "Easy": "🎮 Easy (1-10)",
             "Medium": "🎯 Medium (1-20)",
             "Hard": "🔥 Hard (1-50)",
             "Expert": "💀 Expert (1-100)",
-            "Very difficult": "☠️ Very difficult (1-1000)"
+            "Crazy": "☠️ Crazy (1-1000)"
             "Keluar": "🚪 Keluar"
         }[x]
     )
 
-    if pilihan in ["Easy", "Medium", "Hard", "Expert", "Very difficult"]:
+    if pilihan in ["Easy", "Medium", "Hard", "Expert", "Crazy"]:
         app_game(pilihan)
     elif pilihan == "Keluar":
         keluar()
 
 
 app_menu()
+
