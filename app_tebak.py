@@ -15,6 +15,17 @@ def keluar():
     st.success("Terima kasih sudah bermain Tebak Angka!\nSampai jumpa lagi! 🎉")
     st.stop()
 
+# Fallback notifikasi agar kompatibel lintas versi Streamlit
+def notify(message: str):
+    try:
+        toast_fn = getattr(st, "toast", None)
+        if callable(toast_fn):
+            toast_fn(message)
+        else:
+            st.success(message)
+    except Exception:
+        st.success(message)
+
 # Level kesulitan
 levels = {
     "Easy": {"range": (1, 10), "max_tebakan": 3},
@@ -271,7 +282,7 @@ def app_menu():
                     st.session_state.selected_level = name
                     # Set nilai widget selectbox secara langsung agar sinkron tanpa pilihan manual
                     st.session_state["level_select"] = name
-                    st.toast(f"Level {name} dipilih ✅")
+                    notify(f"Level {name} dipilih ✅")
                     st.session_state.just_navigated = True
                     st.rerun()
             idx += 1
