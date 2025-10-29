@@ -2,7 +2,7 @@ import streamlit as st
 import random
 
 # Konfigurasi halaman
-st.set_page_config(page_title="Tebak Angka Delon", page_icon="🎯", layout="centered")
+st.set_page_config(page_title="Tebak Angka", page_icon="🎯", layout="centered")
 
 # Fungsi untuk garis pemisah
 def garis():
@@ -23,7 +23,7 @@ levels = {
     "Crazy": {"range": (1, 1000), "max_tebakan": 10},
     "Bahlil": {"range": (1, 100000), "max_tebakan": 20},
     "Luhut": {"range": (1, 500000), "max_tebakan": 25},
-    "Gbran": {"range": (1, 1000000), "max_tebakan": 30},
+    "Gibran": {"range": (1, 1000000), "max_tebakan": 30},
     "Wowo": {"range": (1, 1500000), "max_tebakan": 35},
     "Mulyono": {"range": (1, 2000000), "max_tebakan": 40}
 }
@@ -89,6 +89,12 @@ def app_menu():
                         linear-gradient(180deg, #0E0E10 0%, #0B0B0D 100%);
             color: #EAEAF2;
             font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+            animation: bgFloat 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgFloat {
+            0% { background-position: 0 0, 0 0, 0 0; }
+            100% { background-position: 20px -30px, -30px 20px, 0 0; }
         }
 
         /* Kontainer utama menjadi kartu elegan */
@@ -106,6 +112,12 @@ def app_menu():
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             padding: 28px 28px;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Judul dengan gradien tipografi */
@@ -119,6 +131,12 @@ def app_menu():
             background-clip: text;
             color: transparent;
             margin: 0.25rem 0 0.5rem 0;
+            animation: shimmer 2.6s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
 
         hr {
@@ -141,6 +159,15 @@ def app_menu():
             border-radius: 999px;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
             white-space: nowrap;
+            transform: translateY(0);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            animation: popIn 0.5s ease both;
+        }
+        .badge:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Tombol */
@@ -154,9 +181,27 @@ def app_menu():
             letter-spacing: 0.3px;
             box-shadow: 0 10px 20px rgba(59,94,234,0.28);
             transition: transform 0.06s ease, box-shadow 0.2s ease, filter 0.2s ease;
+            position: relative;
+            overflow: hidden;
         }
         .stButton>button:hover { transform: translateY(-1px); filter: brightness(1.03); }
         .stButton>button:active { transform: translateY(0); box-shadow: 0 6px 14px rgba(59,94,234,0.22); }
+
+        /* Ripple halus */
+        .stButton>button::after {
+            content: "";
+            position: absolute;
+            left: 50%; top: 50%;
+            width: 0; height: 0;
+            background: rgba(255,255,255,0.35);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+        }
+        .stButton>button:active::after {
+            width: 220px; height: 220px; opacity: 0.14;
+        }
 
         /* Selectbox */
         div[data-testid="stSelectbox"] div[role="combobox"] {
