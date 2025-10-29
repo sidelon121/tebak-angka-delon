@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import random
 
 # Konfigurasi halaman
@@ -42,6 +43,8 @@ def app_game(level_name):
         st.session_state.game_over = False
         st.session_state.won = False
 
+    # Anchor untuk auto-scroll masuk ke area game
+    st.markdown("<div id='game-start'></div>", unsafe_allow_html=True)
     garis()
     st.markdown(f"<h4 style='text-align:center;'>LEVEL {level_name.upper()} - Tebak Angka {min_num}-{max_num}</h4>", unsafe_allow_html=True)
     garis()
@@ -76,19 +79,28 @@ def app_game(level_name):
             del st.session_state.won
             st.rerun()
 
+    # Tampilkan tombol kembali ke Menu Level
+    cols_back = st.columns([1, 1, 1])
+    with cols_back[0]:
+        if st.button("← Menu", key="back_to_menu"):
+            # Reset hanya pilihan level, tidak menghapus hasil angka acak agar game baru saat kembali pilih level
+            st.session_state.selected_level = "Pilih Level"
+            st.session_state["level_select"] = "Pilih Level"
+            st.rerun()
+
 # Fungsi menu utama
 def app_menu():
     # Global CSS bertema minimalis-elegan
     st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 
         .stApp {
-            background: radial-gradient(1200px 600px at 100% 0%, rgba(118,75,162,0.25) 0%, rgba(118,75,162,0) 60%),
-                        radial-gradient(900px 500px at 0% 100%, rgba(102,126,234,0.25) 0%, rgba(102,126,234,0) 60%),
-                        linear-gradient(180deg, #0E0E10 0%, #0B0B0D 100%);
-            color: #EAEAF2;
-            font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+            background: radial-gradient(1200px 600px at 100% 0%, rgba(31,119,255,0.25) 0%, rgba(31,119,255,0) 60%),
+                        radial-gradient(900px 500px at 0% 100%, rgba(0,193,144,0.25) 0%, rgba(0,193,144,0) 60%),
+                        linear-gradient(180deg, #0B0C10 0%, #0A0B0E 100%);
+            color: #F2F3F7;
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
             animation: bgFloat 18s ease-in-out infinite alternate;
         }
 
@@ -123,10 +135,10 @@ def app_menu():
         /* Judul dengan gradien tipografi */
         .title {
             text-align: center;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 38px;
             letter-spacing: 0.5px;
-            background: linear-gradient(90deg, #EAEAF2 0%, #B7B8C8 50%, #EAEAF2 100%);
+            background: linear-gradient(90deg, #FFFFFF 0%, #D9DCEA 50%, #FFFFFF 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -146,16 +158,16 @@ def app_menu():
         }
 
         /* Badge level */
-        .badges { text-align: center; margin: 4px 0 8px 0; }
+        .badges { text-align: center; margin: 8px 0 10px 0; }
         .badge {
             display: inline-block;
-            padding: 6px 10px;
+            padding: 8px 12px;
             margin: 6px 6px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
-            color: #EAEAF2;
-            background: rgba(255,255,255,0.065);
-            border: 1px solid rgba(255,255,255,0.12);
+            color: #F2F3F7;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 999px;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
             white-space: nowrap;
@@ -172,14 +184,14 @@ def app_menu():
 
         /* Tombol */
         .stButton>button {
-            background: linear-gradient(180deg, #3D73F5 0%, #3B5EEA 100%);
+            background: linear-gradient(180deg, #4C84FF 0%, #3D6DF2 100%);
             color: #fff;
             border: 0;
             border-radius: 12px;
             padding: 0.6rem 1.1rem;
             font-weight: 600;
             letter-spacing: 0.3px;
-            box-shadow: 0 10px 20px rgba(59,94,234,0.28);
+            box-shadow: 0 10px 20px rgba(61,109,242,0.28);
             transition: transform 0.06s ease, box-shadow 0.2s ease, filter 0.2s ease;
             position: relative;
             overflow: hidden;
@@ -205,22 +217,22 @@ def app_menu():
 
         /* Selectbox */
         div[data-testid="stSelectbox"] div[role="combobox"] {
-            background: rgba(255,255,255,0.055);
-            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 12px;
         }
         div[data-testid="stSelectbox"] input {
-            color: #EAEAF2 !important;
-            font-weight: 500;
+            color: #F2F3F7 !important;
+            font-weight: 600;
         }
 
         /* Number input */
         div[data-testid="stNumberInput"] input[type="number"] {
-            background: rgba(255,255,255,0.055);
-            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 12px;
-            color: #EAEAF2;
-            font-weight: 600;
+            color: #F2F3F7;
+            font-weight: 700;
         }
 
         /* Alert */
@@ -235,12 +247,14 @@ def app_menu():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<div class='title'>Welcome to </div>", unsafe_allow_html=True)
+    st.markdown("<div class='title'>Menu</div>", unsafe_allow_html=True)
     st.markdown("<div class='title'>Tebak Angka Delon</div>", unsafe_allow_html=True)
     garis()
     # Badges interaktif: klik untuk memilih level (sinkron dengan selectbox)
     if 'selected_level' not in st.session_state:
         st.session_state.selected_level = "Pilih Level"
+    if 'just_navigated' not in st.session_state:
+        st.session_state.just_navigated = False
 
     levels_order = list(levels.keys())
     cols_per_row = 5
@@ -258,6 +272,7 @@ def app_menu():
                     # Set nilai widget selectbox secara langsung agar sinkron tanpa pilihan manual
                     st.session_state["level_select"] = name
                     st.toast(f"Level {name} dipilih ✅")
+                    st.session_state.just_navigated = True
                     st.rerun()
             idx += 1
 
@@ -288,9 +303,21 @@ def app_menu():
     # Sinkronkan state jika user ubah via selectbox
     if pilihan != st.session_state.selected_level:
         st.session_state.selected_level = pilihan
+        if pilihan != "Pilih Level" and pilihan != "Keluar":
+            st.session_state.just_navigated = True
+            st.rerun()
 
     if pilihan in ["Easy", "Medium", "Hard", "Expert", "Crazy", "Bahlil", "Luhut", "Gibran", "Wowo", "Mulyono"]:
         app_game(pilihan)
+        # Scroll otomatis ke anchor game-start saat baru navigasi dari menu
+        if st.session_state.just_navigated:
+            components.html("""
+            <script>
+                const el = document.getElementById('game-start');
+                if (el) { el.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+            </script>
+            """, height=0)
+            st.session_state.just_navigated = False
     elif pilihan == "Keluar":
         keluar()
 
