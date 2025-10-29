@@ -262,14 +262,23 @@ def app_menu():
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
             animation: fadeUp 0.5s ease both;
         }
+
+        /* Responsif untuk HP */
+        @media (max-width: 480px) {
+            .block-container { padding-top: 1rem; padding-bottom: 1rem; }
+            .title { font-size: 28px; }
+            .badge { font-size: 12px; padding: 8px 10px; }
+            .stButton>button { width: 100%; padding: 0.55rem 1rem; }
+            div[data-testid="stSelectbox"] div[role="combobox"] { font-size: 14px; }
+        }
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<div class='title'>Menu</div>", unsafe_allow_html=True)
+    st.markdown("<div class='title'>WELCOME TO</div>", unsafe_allow_html=True)
     st.markdown("<div class='title'>Tebak Angka Delon</div>", unsafe_allow_html=True)
     garis()
     # Notice menu
-    st.markdown("<div style='text-align:center'><span class='notice'>Ini adalah Menu Level • Silakan pilih level untuk bermain</span></div>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align:center'><span class='notice'>Menu Level • Silakan pilih level untuk bermain</span></div>", unsafe_allow_html=True)
     # Badges interaktif: klik untuk memilih level (sinkron dengan selectbox)
     if 'selected_level' not in st.session_state:
         st.session_state.selected_level = "Pilih Level"
@@ -277,7 +286,8 @@ def app_menu():
         st.session_state.just_navigated = False
 
     levels_order = list(levels.keys())
-    cols_per_row = 5
+    # 3 kolom agar lebih pas di HP
+    cols_per_row = 3
     rows = (len(levels_order) + cols_per_row - 1) // cols_per_row
     idx = 0
     for _ in range(rows):
@@ -329,12 +339,18 @@ def app_menu():
 
     if pilihan in ["Easy", "Medium", "Hard", "Expert", "Crazy", "Bahlil", "Luhut", "Gibran", "Wowo", "Mulyono"]:
         app_game(pilihan)
-        # Scroll otomatis ke anchor game-start saat baru navigasi dari menu
+        # Scroll otomatis: tunggu render selesai, lalu scroll halus ke anchor
         if st.session_state.just_navigated:
             components.html("""
             <script>
-                const el = document.getElementById('game-start');
-                if (el) { el.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+              (function scrollAfterRender(){
+                function go(){
+                  const el = document.getElementById('game-start');
+                  if (el) { el.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+                }
+                // tunda sedikit untuk memastikan elemen sudah terpasang
+                setTimeout(go, 120);
+              })();
             </script>
             """, height=0)
             st.session_state.just_navigated = False
