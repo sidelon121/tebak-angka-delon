@@ -2,7 +2,7 @@ import streamlit as st
 import random
 
 # Konfigurasi halaman
-st.set_page_config(page_title="Tebak Angka", page_icon="🎯", layout="centered")
+st.set_page_config(page_title="Tebak Angka Delon", page_icon="🎯", layout="centered")
 
 # Fungsi untuk garis pemisah
 def garis():
@@ -190,8 +190,7 @@ def app_menu():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<div class='title'>WELCOME TO 🎯</div>", unsafe_allow_html=True)
-    st.markdown("<div class='title'>Tebak Angka Delon</div>", unsafe_allow_html=True)
+    st.markdown("<div class='title'>Tebak Angka</div>", unsafe_allow_html=True)
     garis()
     # Badges level auto dari konfigurasi
     badges_html = " ".join([
@@ -224,3 +223,6 @@ def app_menu():
         app_game(pilihan)
     elif pilihan == "Keluar":
         keluar()
+
+
+app_menu()
