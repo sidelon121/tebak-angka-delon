@@ -1,6 +1,9 @@
 import streamlit as st
 import random
 
+# Konfigurasi halaman
+st.set_page_config(page_title="Tebak Angka Delon", page_icon="🎯", layout="centered")
+
 # Fungsi untuk garis pemisah
 def garis():
     st.markdown("<hr style='border:1px solid #bbb;'>", unsafe_allow_html=True)
@@ -75,68 +78,144 @@ def app_game(level_name):
 
 # Fungsi menu utama
 def app_menu():
-    # Background dengan CSS
+    # Global CSS bertema minimalis-elegan
     st.markdown("""
     <style>
-    .main {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }
-    .stButton>button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 12px;
-    }
-    .stSelectbox>div>div>input {
-        background-color: #f0f0f0;
-    }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        .stApp {
+            background: radial-gradient(1200px 600px at 100% 0%, rgba(118,75,162,0.25) 0%, rgba(118,75,162,0) 60%),
+                        radial-gradient(900px 500px at 0% 100%, rgba(102,126,234,0.25) 0%, rgba(102,126,234,0) 60%),
+                        linear-gradient(180deg, #0E0E10 0%, #0B0B0D 100%);
+            color: #EAEAF2;
+            font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+        }
+
+        /* Kontainer utama menjadi kartu elegan */
+        .block-container {
+            max-width: 760px;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .app-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 28px 28px;
+        }
+
+        /* Judul dengan gradien tipografi */
+        .title {
+            text-align: center;
+            font-weight: 700;
+            font-size: 38px;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #EAEAF2 0%, #B7B8C8 50%, #EAEAF2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0.25rem 0 0.5rem 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            margin: 12px 0 18px 0;
+        }
+
+        /* Badge level */
+        .badges { text-align: center; margin: 4px 0 8px 0; }
+        .badge {
+            display: inline-block;
+            padding: 6px 10px;
+            margin: 6px 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #EAEAF2;
+            background: rgba(255,255,255,0.065);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 999px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+            white-space: nowrap;
+        }
+
+        /* Tombol */
+        .stButton>button {
+            background: linear-gradient(180deg, #3D73F5 0%, #3B5EEA 100%);
+            color: #fff;
+            border: 0;
+            border-radius: 12px;
+            padding: 0.6rem 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            box-shadow: 0 10px 20px rgba(59,94,234,0.28);
+            transition: transform 0.06s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        }
+        .stButton>button:hover { transform: translateY(-1px); filter: brightness(1.03); }
+        .stButton>button:active { transform: translateY(0); box-shadow: 0 6px 14px rgba(59,94,234,0.22); }
+
+        /* Selectbox */
+        div[data-testid="stSelectbox"] div[role="combobox"] {
+            background: rgba(255,255,255,0.055);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+        }
+        div[data-testid="stSelectbox"] input {
+            color: #EAEAF2 !important;
+            font-weight: 500;
+        }
+
+        /* Number input */
+        div[data-testid="stNumberInput"] input[type="number"] {
+            background: rgba(255,255,255,0.055);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            color: #EAEAF2;
+            font-weight: 600;
+        }
+
+        /* Alert */
+        .stAlert {
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+        }
+
+        /* Text */
+        .muted { color: #B7B8C8; font-size: 14px; text-align: center; }
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='text-align:center; color: white;'>🎯 TEBAK ANGKA DELON 🎯</h1>", unsafe_allow_html=True)
+    st.markdown("<div class='title'>Tebak Angka</div>", unsafe_allow_html=True)
     garis()
-    st.markdown("""
-    <div style='text-align:center; color: white;'>
-    <b>Pilih Level Kesulitan:</b><br>
-    <span>Easy: 1-10 (3 tebakan)</span><br>
-    <span>Medium: 1-20 (4 tebakan)</span><br>
-    <span>Hard: 1-50 (5 tebakan)</span><br>
-    <span>Expert: 1-100 (6 tebakan)</span><br>
-    <span>Crazy: 1-1000 (10 tebakan)</span><br>
-    <span>Bahlil: 1-100000 (20 tebakan)</span><br>
-    <span>Luhut: 1-500000 (25 tebakan)</span><br>
-    <span>Gibran: 1-1000000 (30 tebakan)</span><br>
-    <span>Wowo: 1-1500000 (35 tebakan)</span><br>
-    <span>Mulyono: 1-2000000 (40 tebakan)</span><br>
-    
-    </div>
-    """, unsafe_allow_html=True)
+    # Badges level auto dari konfigurasi
+    badges_html = " ".join([
+        f"<span class='badge'>{name}: {cfg['range'][0]}-{cfg['range'][1]} ({cfg['max_tebakan']}x)</span>"
+        for name, cfg in levels.items()
+    ])
+    st.markdown(f"<div class='app-card'><div class='badges'>{badges_html}</div></div>", unsafe_allow_html=True)
     garis()
 
     pilihan = st.selectbox(
-        "Pilih opsi:",
+        "Pilih level:",
         ("Pilih Level", "Easy", "Medium", "Hard", "Expert", "Crazy", "Bahlil", "Luhut", "Gibran", "Wowo", "Mulyono", "Keluar"),
         format_func=lambda x: {
             "Pilih Level": "Pilih Level Kesulitan",
-            "Easy": "🎮 Easy (1-10)",
-            "Medium": "🎯 Medium (1-20)",
-            "Hard": "🔥 Hard (1-50)",
-            "Expert": "💀 Expert (1-100)",
-            "Crazy": "☠️ Crazy (1-1000)",
-            "Bahlil": "🥰 Bahlil (1-100000)",
-            "Luhut": "😍 Luhut (1-500000)",
-            "Gibran": "😎 Gibran (1-1000000)",
-            "Wowo": "☺️ Wowo (1-1500000)",
-            "Mulyono": "😚 Mulyono (1-2000000)",
-            "Keluar": "🚪 Keluar"
+            "Easy": "Easy (1-10)",
+            "Medium": "Medium (1-20)",
+            "Hard": "Hard (1-50)",
+            "Expert": "Expert (1-100)",
+            "Crazy": "Crazy (1-1000)",
+            "Bahlil": "Bahlil (1-100000)",
+            "Luhut": "Luhut (1-500000)",
+            "Gibran": "Gibran (1-1000000)",
+            "Wowo": "Wowo (1-1500000)",
+            "Mulyono": "Mulyono (1-2000000)",
+            "Keluar": "Keluar"
         }[x]
     )
 
@@ -147,15 +226,3 @@ def app_menu():
 
 
 app_menu()
-
-
-
-
-
-
-
-
-
-
-
-
