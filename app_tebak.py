@@ -235,20 +235,43 @@ def app_menu():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<div class='title'>WELCOME TO 🎯</div>", unsafe_allow_html=True)
+    st.markdown("<div class='title'>Welcome to </div>", unsafe_allow_html=True)
     st.markdown("<div class='title'>Tebak Angka Delon</div>", unsafe_allow_html=True)
     garis()
-    # Badges level auto dari konfigurasi
-    badges_html = " ".join([
-        f"<span class='badge'>{name}: {cfg['range'][0]}-{cfg['range'][1]} ({cfg['max_tebakan']}x)</span>"
-        for name, cfg in levels.items()
-    ])
-    st.markdown(f"<div class='app-card'><div class='badges'>{badges_html}</div></div>", unsafe_allow_html=True)
+    # Badges interaktif: klik untuk memilih level (sinkron dengan selectbox)
+    if 'selected_level' not in st.session_state:
+        st.session_state.selected_level = "Pilih Level"
+
+    levels_order = list(levels.keys())
+    cols_per_row = 5
+    rows = (len(levels_order) + cols_per_row - 1) // cols_per_row
+    idx = 0
+    for _ in range(rows):
+        cols = st.columns(cols_per_row)
+        for c in range(cols_per_row):
+            if idx >= len(levels_order):
+                break
+            name = levels_order[idx]
+            with cols[c]:
+                if st.button(name, key=f"badge_{name}"):
+                    st.session_state.selected_level = name
+                    st.toast(f"Level {name} dipilih ✅")
+            idx += 1
+
     garis()
+
+    choices = ("Pilih Level",) + tuple(levels_order) + ("Keluar",)
+    # Tentukan index default berdasarkan pilihan dari badge
+    try:
+        default_index = choices.index(st.session_state.selected_level)
+    except ValueError:
+        default_index = 0
 
     pilihan = st.selectbox(
         "Pilih level:",
-        ("Pilih Level", "Easy", "Medium", "Hard", "Expert", "Crazy", "Bahlil", "Luhut", "Gibran", "Wowo", "Mulyono", "Keluar"),
+        choices,
+        index=default_index,
+        key="level_select",
         format_func=lambda x: {
             "Pilih Level": "Pilih Level Kesulitan",
             "Easy": "Easy (1-10)",
@@ -262,8 +285,12 @@ def app_menu():
             "Wowo": "Wowo (1-1500000)",
             "Mulyono": "Mulyono (1-2000000)",
             "Keluar": "Keluar"
-        }[x]
+        }.get(x, x)
     )
+
+    # Sinkronkan state jika user ubah via selectbox
+    if pilihan != st.session_state.selected_level:
+        st.session_state.selected_level = pilihan
 
     if pilihan in ["Easy", "Medium", "Hard", "Expert", "Crazy", "Bahlil", "Luhut", "Gibran", "Wowo", "Mulyono"]:
         app_game(pilihan)
@@ -272,4 +299,3 @@ def app_menu():
 
 
 app_menu()
-
