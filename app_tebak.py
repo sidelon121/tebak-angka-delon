@@ -274,7 +274,7 @@ def app_menu():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<div class='title'>WELCOME TO</div>", unsafe_allow_html=True)
+    st.markdown("<div class='super-title'>WELCOME TO</div>", unsafe_allow_html=True)
     st.markdown("<div class='title'>Tebak Angka Delon</div>", unsafe_allow_html=True)
     garis()
     # Notice menu
