@@ -90,14 +90,6 @@ def app_game(level_name):
             del st.session_state.won
             st.rerun()
 
-    # Tampilkan tombol kembali ke Menu Level
-    cols_back = st.columns([1, 1, 1])
-    with cols_back[0]:
-        if st.button("← Menu", key="back_to_menu"):
-            # Reset hanya pilihan level, tidak menghapus hasil angka acak agar game baru saat kembali pilih level
-            st.session_state.selected_level = "Pilih Level"
-            st.session_state["level_select"] = "Pilih Level"
-            st.rerun()
 
 # Fungsi menu utama
 def app_menu():
@@ -255,12 +247,29 @@ def app_menu():
 
         /* Text */
         .muted { color: #B7B8C8; font-size: 14px; text-align: center; }
+
+        /* Notice area */
+        .notice {
+            display: inline-block;
+            padding: 10px 14px;
+            margin: 6px auto 8px auto;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 12px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            color: #F2F3F7;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+            animation: fadeUp 0.5s ease both;
+        }
     </style>
     """, unsafe_allow_html=True)
 
     st.markdown("<div class='title'>Menu</div>", unsafe_allow_html=True)
     st.markdown("<div class='title'>Tebak Angka Delon</div>", unsafe_allow_html=True)
     garis()
+    # Notice menu
+    st.markdown("<div style='text-align:center'><span class='notice'>Ini adalah Menu Level • Silakan pilih level untuk bermain</span></div>", unsafe_allow_html=True)
     # Badges interaktif: klik untuk memilih level (sinkron dengan selectbox)
     if 'selected_level' not in st.session_state:
         st.session_state.selected_level = "Pilih Level"
