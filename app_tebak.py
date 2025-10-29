@@ -18,7 +18,11 @@ levels = {
     "Hard": {"range": (1, 50), "max_tebakan": 5},
     "Expert": {"range": (1, 100), "max_tebakan": 6},
     "Crazy": {"range": (1, 1000), "max_tebakan": 10},
-    "Mangga": {"range": (1, 100000), "max_tebakan": 20}
+    "Bahlil": {"range": (1, 100000), "max_tebakan": 20},
+    "Luhut": {"range": (1, 500000), "max_tebakan": 25},
+    "Gbran": {"range": (1, 1000000), "max_tebakan": 30},
+    "Wowo": {"range": (1, 1500000), "max_tebakan": 35},
+    "Mulyono": {"range": (1, 2000000), "max_tebakan": 40}
 }
 
 # Fungsi game tebak angka
@@ -107,14 +111,19 @@ def app_menu():
     <span>Hard: 1-50 (5 tebakan)</span><br>
     <span>Expert: 1-100 (6 tebakan)</span><br>
     <span>Crazy: 1-1000 (10 tebakan)</span><br>
-    <span>Mangga: 1-100000 (20 tebakan)</span><br>
+    <span>Bahlil: 1-100000 (20 tebakan)</span><br>
+    <span>Luhut: 1-500000 (25 tebakan)</span><br>
+    <span>Gibran: 1-1000000 (30 tebakan)</span><br>
+    <span>Wowo: 1-1500000 (35 tebakan)</span><br>
+    <span>Mulyono: 1-2000000 (40 tebakan)</span><br>
+    
     </div>
     """, unsafe_allow_html=True)
     garis()
 
     pilihan = st.selectbox(
         "Pilih opsi:",
-        ("Pilih Level", "Easy", "Medium", "Hard", "Expert", "Crazy", "Mangga", "Keluar"),
+        ("Pilih Level", "Easy", "Medium", "Hard", "Expert", "Crazy", "Bahlil", "Luhut", "Gibran", "Wowo", "Mulyono", "Keluar"),
         format_func=lambda x: {
             "Pilih Level": "Pilih Level Kesulitan",
             "Easy": "🎮 Easy (1-10)",
@@ -122,18 +131,23 @@ def app_menu():
             "Hard": "🔥 Hard (1-50)",
             "Expert": "💀 Expert (1-100)",
             "Crazy": "☠️ Crazy (1-1000)",
-            "Mangga": "🥰 Mangga (1-100000)",
+            "Bahlil": "🥰 Bahlil (1-100000)",
+            "Luhut": "😍 Luhut (1-500000)",
+            "Gibran": "😎 Gibran (1000000)",
+            "Wowo": "🥵 Wowo (1500000)",
+            "Mulyono: "🥶 Mulyono (2000000",
             "Keluar": "🚪 Keluar"
         }[x]
     )
 
-    if pilihan in ["Easy", "Medium", "Hard", "Expert", "Crazy", "Mangga"]:
+    if pilihan in ["Easy", "Medium", "Hard", "Expert", "Crazy", "Bahlil", "Luhut", "Gibran", "Wowo", "Mulyono"]:
         app_game(pilihan)
     elif pilihan == "Keluar":
         keluar()
 
 
 app_menu()
+
 
 
 
