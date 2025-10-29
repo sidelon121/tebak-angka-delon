@@ -135,7 +135,7 @@ def app_menu():
             "Luhut": "😍 Luhut (1-500000)",
             "Gibran": "😎 Gibran (1000000)",
             "Wowo": "☺️ Wowo (1500000)",
-            "Mulyono: "😋 Mulyono (2000000)",
+            "Mulyono: "😍 Mulyono (2000000)",
             "Keluar": "🚪 Keluar"
         }[x]
     )
@@ -147,6 +147,7 @@ def app_menu():
 
 
 app_menu()
+
 
 
 
