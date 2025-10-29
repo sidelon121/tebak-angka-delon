@@ -189,8 +189,8 @@ def app_menu():
         .muted { color: #B7B8C8; font-size: 14px; text-align: center; }
     </style>
     """, unsafe_allow_html=True)
-
-    st.markdown("<div class='title'>Tebak Angka</div>", unsafe_allow_html=True)
+    st.markdown("<div class='title'>WELCOME</div>", unsafe_allow_html=True)
+    st.markdown("<div class='title'>Tebak Angk Delon</div>", unsafe_allow_html=True)
     garis()
     # Badges level auto dari konfigurasi
     badges_html = " ".join([
@@ -226,4 +226,5 @@ def app_menu():
 
 
 app_menu()
+
 
