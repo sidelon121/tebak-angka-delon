@@ -255,22 +255,19 @@ def app_menu():
             with cols[c]:
                 if st.button(name, key=f"badge_{name}"):
                     st.session_state.selected_level = name
+                    # Set nilai widget selectbox secara langsung agar sinkron tanpa pilihan manual
+                    st.session_state["level_select"] = name
                     st.toast(f"Level {name} dipilih ✅")
+                    st.rerun()
             idx += 1
 
     garis()
 
     choices = ("Pilih Level",) + tuple(levels_order) + ("Keluar",)
-    # Tentukan index default berdasarkan pilihan dari badge
-    try:
-        default_index = choices.index(st.session_state.selected_level)
-    except ValueError:
-        default_index = 0
 
     pilihan = st.selectbox(
         "Pilih level:",
         choices,
-        index=default_index,
         key="level_select",
         format_func=lambda x: {
             "Pilih Level": "Pilih Level Kesulitan",
