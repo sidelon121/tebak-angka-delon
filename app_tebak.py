@@ -2,7 +2,7 @@ import streamlit as st
 import random
 
 # Konfigurasi halaman
-st.set_page_config(page_title="Tebak Angka", page_icon="🎯", layout="centered")
+st.set_page_config(page_title="Tebak Angka Delon", page_icon="🎯", layout="centered")
 
 # Fungsi untuk garis pemisah
 def garis():
@@ -271,3 +271,4 @@ def app_menu():
 
 
 app_menu()
+
