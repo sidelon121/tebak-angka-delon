@@ -103,8 +103,10 @@ def app_menu():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='text-align:center; color: white;'>WELCOME TO</h1>"
-                <h2>Tebak Angka Delon</h2>", unsafe_allow_html=True)
+    
+    st.markdown("<h1 style='text-align:center; color: white;'>WELCOME TO</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align:center; color: white;'>Tebak Angka Delon</h2>", unsafe_allow_html=True)
+    
     garis()
     st.markdown("""
     <div style='text-align:center; color: white;'>
@@ -150,6 +152,7 @@ def app_menu():
 
 
 app_menu()
+
 
 
 
