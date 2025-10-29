@@ -235,7 +235,8 @@ def app_menu():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<div class='title'>Tebak Angka</div>", unsafe_allow_html=True)
+    st.markdown("<div class='title'>Welcome to </div>", unsafe_allow_html=True)
+    st.markdown("<div class='title'>Tebak Angka Delon</div>", unsafe_allow_html=True)
     garis()
     # Badges level auto dari konfigurasi
     badges_html = " ".join([
@@ -271,4 +272,3 @@ def app_menu():
 
 
 app_menu()
-
